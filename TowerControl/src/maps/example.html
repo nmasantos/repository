@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+     
+	var map;
+	var markers = [];
+    
+	var drone;
+
+	function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8
+        });
+		
+	drone = {
+	url: 'file:///C:/Users/Nuno/Desktop/scripts/rszdrone.png',
+	size: new google.maps.Size(50,50),
+	origin: new google.maps.Point(0,0),
+	anchor: new google.maps.Point(25,25)};	
+		
+		// Each click adds a marker
+		google.maps.event.addListener(map, 'click', function(event) {
+		addMarker(event.latLng, map);
+	});
+	}
+	
+	function locatingCoordinates(coordinates) {
+	
+	var latlng = coordinates.split(',', 2);
+	var location = {lat: parseFloat(latlng[0]), lng: parseFloat(latlng[1])};
+	
+	addMarker(location, map);
+	
+	createPath();
+	
+	removeLastMarker();
+	
+    map.setZoom(15);
+	map.panTo(location);
+	
+	}
+	
+	 
+		// Adds a marker to a location
+	function addMarker(location, map) {
+		var marker = new google.maps.Marker({
+		position: location,
+		icon: drone,
+		map: map
+		});
+		markers.push(marker);
+	}
+	
+	//Removes the last marker
+	function removeLastMarker(){
+		if(markers.length > 1){
+			var removedMarker = markers.shift();
+				removedMarker.setMap(null);
+				
+	}
+	}
+	
+	//This function should check the coordinates of the removed marker and compare them to latest one, the goal is to draw a simple polyline in order to check the path performed by the drone 
+	function createPath(){
+	
+			var firstMarker = markers[0];
+			var secondMarker = markers[1];
+		
+			var drawCoordinates = [firstMarker.getPosition(), secondMarker.getPosition()];
+			var drawPath = new google.maps.Polyline({
+				path: drawCoordinates,
+				geodesic: true,
+				strokeColor: '#FF0000',
+				strokeOpacity: 1.0,
+				strokeWeight: 1 
+				});
+			
+			drawPath.setMap(map);
+	}
+	
+	  
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB23fLavoA2ymh3as7lgRuGl0IxzaJ9hVw&callback=initMap"
+    async defer></script>
+  </body>
+</html>

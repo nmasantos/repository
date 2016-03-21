@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.GCSGuiController">
+   <left>
+      <SplitPane orientation="VERTICAL" prefHeight="200.0" prefWidth="250.0" BorderPane.alignment="CENTER">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="460.0" prefWidth="196.0">
+               <children>
+                  <TextField layoutY="97.0" prefHeight="25.0" prefWidth="62.0" promptText="yaw" />
+                  <TextField fx:id="groundspeed" layoutY="29.0" onAction="#changes" onKeyTyped="#tryKeyTyped" prefHeight="25.0" prefWidth="62.0" promptText="groundspeed" />
+                  <TextField layoutY="160.0" prefHeight="25.0" prefWidth="63.0" promptText="pitch" />
+                  <TextField fx:id="throttle" layoutY="230.0" onAction="#changes" prefHeight="25.0" prefWidth="63.0" promptText="throttle" />
+                  <TextField fx:id="altitude" layoutY="306.0" onAction="#changes" prefHeight="25.0" prefWidth="63.0" promptText="altitude" />
+                  <TextField layoutY="373.0" prefHeight="25.0" prefWidth="63.0" promptText="drone id" />
+                  <Label layoutY="6.0" prefHeight="17.0" prefWidth="80.0" text="Groundspeed" />
+                  <Label layoutY="72.0" prefHeight="17.0" prefWidth="32.0" text="Yaw" />
+                  <Label layoutX="2.0" layoutY="143.0" prefHeight="17.0" prefWidth="38.0" text="Pitch" />
+                  <Label layoutX="3.0" layoutY="213.0" prefHeight="17.0" prefWidth="56.0" text="Throttle" />
+                  <Label layoutX="2.0" layoutY="289.0" prefHeight="17.0" prefWidth="59.0" text="Altitude" />
+                  <Label layoutX="6.0" layoutY="356.0" prefHeight="17.0" prefWidth="51.0" text="Drone id" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </left>
+   <top>
+      <VBox prefHeight="27.0" prefWidth="968.0" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar prefHeight="3.0" prefWidth="968.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <Pane prefHeight="30.0" prefWidth="968.0" />
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <WebView fx:id="mapView" prefHeight="620.0" prefWidth="821.0" BorderPane.alignment="CENTER" />
+   </center>
+   <right>
+      <VBox alignment="TOP_CENTER" depthTest="DISABLE" prefHeight="620.0" prefWidth="189.0" spacing="50.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <children>
+            <ListView fx:id="listView" prefHeight="765.0" prefWidth="189.0" />
+         </children>
+      </VBox>
+   </right>
+   <bottom>
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Region prefHeight="100.0" prefWidth="249.0" />
+            <Button mnemonicParsing="false" onAction="#searchDrones" style="-fx-background-color: black;" text="Search for Drones" textFill="WHITE" />
+            <Button mnemonicParsing="false" onAction="#changeMode" style="-fx-background-color: black;" text="Test motor" textFill="WHITE" textOverrun="WORD_ELLIPSIS" />
+            <Button mnemonicParsing="false" onAction="#connectButtonClicked" style="-fx-background-color: black;" text="Connect" textFill="WHITE" textOverrun="CLIP" />
+            <Button mnemonicParsing="false" onAction="#updateLocation" style="-fx-background-color: black;" text="Update Location" textFill="WHITE" />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>
